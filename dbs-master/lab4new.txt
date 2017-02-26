@@ -1,0 +1,212 @@
+
+
+SQL> select * from customer226;
+
+      CUST CNAME      CITY
+---------- ---------- --------------------
+         1 abc        MIT
+         2 abcd       MIT
+         3 ab         SOC
+         4 dab        KMC
+
+SQL> select * from orders226
+  2  ;
+
+    ORDER1 ODATE           CUST     ORDAMT
+---------- --------- ---------- ----------
+        44 10-JUL-17          4     100000
+        33 19-JUL-17          3     500000
+        22 19-AUG-17          2     500530
+        11 10-AUG-17          1        530
+
+SQL> select * from item226;
+
+      ITEM  UNITPRICE
+---------- ----------
+         1       1530
+         2        153
+         3   15543763
+         4    5155437
+
+SQL> select * from shipment226;
+
+no rows selected
+
+SQL> select * from warehouse226;
+
+no rows selected
+
+SQL> select * from order_items226;
+
+no rows selected
+
+SQL> insert into order_items226 values(44,3,4);
+insert into order_items226 values(44,3,4)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (IT1226.SYS_C00109768) violated - parent key
+not found
+
+
+SQL> insert into order_items226 values(44,3,4);insert into warehouse226 values(1, 'delhi');
+insert into order_items226 values(44,3,4);insert into warehouse226 values(1, 'delhi')
+                                         *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> insert into warehouse226 values(1, 'delhi');
+
+1 row created.
+
+SQL> insert into warehouse226 values(2, 'delhi');
+
+1 row created.
+
+SQL> insert into warehouse226 values(3, 'mumbai');
+
+1 row created.
+
+SQL> insert into warehouse226 values(4, 'manipal');
+
+1 row created.
+
+SQL> insert into shipment226 values(44, '4', '10-sep-2017');
+
+1 row created.
+
+SQL> insert into shipment226 values(33, '3', '10-sep-2017');
+
+1 row created.
+
+SQL> insert into shipment226 values(11, '2', '16-sep-2017');
+
+1 row created.
+
+SQL> insert into shipment226 values(22, '1', '26-dec-2017');
+
+1 row created.
+
+SQL> insert into order_items226 values(22, 38, 2);
+
+1 row created.
+
+SQL> insert into order_items226 values(33, 8, 3);
+
+1 row created.
+
+SQL> insert into order_items226 values(44,88, 4);
+
+1 row created.
+
+SQL> insert into order_items226 values(11, 4, 1);
+
+1 row created.
+
+SQL> select * from customer226;
+
+      CUST CNAME      CITY
+---------- ---------- --------------------
+         1 abc        MIT
+         2 abcd       MIT
+         3 ab         SOC
+         4 dab        KMC
+
+SQL>  select * from orders226;
+
+    ORDER1 ODATE           CUST     ORDAMT
+---------- --------- ---------- ----------
+        44 10-JUL-17          4     100000
+        33 19-JUL-17          3     500000
+        22 19-AUG-17          2     500530
+        11 10-AUG-17          1        530
+
+SQL>  select * from item226;
+
+      ITEM  UNITPRICE
+---------- ----------
+         1       1530
+         2        153
+         3   15543763
+         4    5155437
+
+SQL> select * from order_items226;
+
+    ORDER1        QTY       ITEM
+---------- ---------- ----------
+        22         38          2
+        33          8          3
+        44         88          4
+        11          4          1
+
+SQL> select * from shipment226;
+
+    ORDER1  WAREHOUSE SHIPDATE
+---------- ---------- ---------
+        44          4 10-SEP-17
+        33          3 10-SEP-17
+        11          2 16-SEP-17
+        22          1 26-DEC-17
+
+SQL> select * from warehouse226;
+
+ WAREHOUSE CITY
+---------- ----------
+         1 delhi
+         2 delhi
+         3 mumbai
+         4 manipal
+
+
+SQL> select cname from customer226 c, orders226 o where c.cust = o.cust and o.odate='19-aug-2017';
+
+CNAME
+----------
+abcd
+SQL> select count(item) as item_numbers, order1 from order_items226 group by order1;
+
+ITEM_NUMBERS     ORDER1
+------------ ----------
+           1         11
+           1         22
+           1         33
+           1         44
+
+SQL>    select order1 from order_items226 where qty = (select max(qty) from order_items226);
+
+    ORDER1
+----------
+        44
+
+SQL> select shipdate from shipment226 group by shipdate having count(*)=(select max(count(*)) from shipment226 group by
+shipdate);
+
+SHIPDATE
+---------
+10-SEP-17
+
+
+SQL> select order1 from shipment226 s, warehouse226 w where s.warehouse = w.warehouse and city = 'delhi';
+
+    ORDER1
+----------
+        11
+        22
+
+
+SQL> select cname from customer226 where cname like ('%ab');
+
+CNAME
+----------
+ab
+dab
+
+
+SQL> select cname, ordamt from customer226 c, orders226 o where c.cust = o.cust ORDER by ordamt DESC;
+
+CNAME          ORDAMT
+---------- ----------
+abcd           500530
+ab             500000
+dab            100000
+abc               530

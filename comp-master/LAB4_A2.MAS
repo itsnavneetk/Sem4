@@ -1,0 +1,16 @@
+data segment
+        num1 db 08H
+        res db ?
+data ends 
+code segment
+assume cs:code, ds:data
+start:
+        MOV AX, Data
+        MOV DS, AX
+
+
+        MOV AX, num1
+        MUL AX
+        MUL AX
+
+

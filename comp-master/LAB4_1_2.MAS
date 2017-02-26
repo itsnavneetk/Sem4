@@ -1,0 +1,20 @@
+data segment
+num1 dw -9801H
+num2 dw 1112H
+res dw ?
+data ends
+
+code segment
+assume cs:code, ds:data
+start:
+        MOV AX, data
+        MOV DS, AX
+        MOV DX, num2
+        MOV AX, num1
+        IMUL DX
+
+        MOV res, AX
+        MOV AH, 4CH
+        INT 21H
+code ends
+end start

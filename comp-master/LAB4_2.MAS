@@ -1,0 +1,23 @@
+;div 16bit using 8bit unsigned
+
+data segment
+num1 dw 8A23H
+num2 db 23H
+res dw ?
+data ends
+code segment
+assume cs:code, ds:data
+start:
+        MOV AX, DATA
+        MOV DS, AX
+
+        MOV AX, num1
+        MOV BL, num2
+
+        DIV BL
+        MOV res, AX
+        MOV AH, 4CH
+        INT 21H
+code ends
+end start
+

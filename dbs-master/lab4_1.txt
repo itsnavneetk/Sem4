@@ -1,0 +1,52 @@
+
+create table person(driver_id varchar(10) primary key,name varchar(10), address varchar(10));
+create table car(regno varchar(10) primary key, model varchar(10),year int );
+create table accident(report_number int primary key, accd_date date, location varchar(10) );
+
+create table owns(driver_id varchar(10) foreign key references person(driver_id) , regno varchar(10) foreign key references car(regno))
+create table participated(driver_id varchar(10) foreign key references person(driver_id), regno varchar(10) foreign key references car(regno),report_number int foreign key references accident(report_number), damage_amount int );
+
+
+
+
+insert into person values('111', 'abcd', 'mit');
+insert into person values('222', 'abc', 'mit');
+insert into person values('333', 'abcdef', 'soc');
+insert into person values('444', 'abc', 'mit');
+insert into person values('555', 'ab', 'kmc');
+
+insert into car values('a11', 'bmw', 2005);
+insert into car values('a22', 'bmw', 2015);
+insert into car values('a33', 'bmw', 2009);
+insert into car values('a44', 'bmw', 2003);
+insert into car values('a55', 'bmw', 2011);
+
+insert into accident values(10, '10-july-2015', 'kmc');
+insert into accident values(11, '10-aug-2015', 'kmc');
+insert into accident values(12, '10-july-2012', 'mang');
+insert into accident values(13, '10-jan-2012', 'mang');
+insert into accident values(14, '10-jan-2013', 'mit');
+
+
+insert into owns values('111', 'a11');
+insert into owns values('222', 'a44');
+insert into owns values('333', 'a22');
+insert into owns values('444', 'a33');
+insert into owns values('555', 'a55');
+
+
+insert into participated values('111', 'a11', 10, 47384);
+insert into participated values('222', 'a44', 11, 20000);
+insert into participated values('333', 'a22', 12, 55000);
+insert into participated values('444', 'a33', 13, 99384);
+insert into participated values('555', 'a55', 14, 47384);
+
+
+
+
+
+
+
+ select count(driver_id) as no_accidents  from accident a, participated p where p.report_number = a.report_number 
+
+ select model, count(report_number) from participated p, car c where c.regno = p.regno group by model;

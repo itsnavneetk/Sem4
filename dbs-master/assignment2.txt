@@ -1,0 +1,49 @@
+create database book;
+use book;
+
+create table author(a_id varchar(10) primary key, name varchar(10),city varchar(10), country varchar(10));
+create table publisher(p_id varchar(10) primary key, name varchar(10),city varchar(10), country varchar(10));
+create table catalog(b_id varchar(10) primary key, title varchar(10), a_id varchar(10), p_id varchar(10), c_id varchar(10),year int, price int);
+create table category(c_id varchar(10) primary key, descp varchar(10));
+create table order_details(o_no int primary key, b_id varchar(10), quantity int);
+
+alter table catalog add foreign key(a_id) references author(a_id);
+alter table catalog add foreign key(p_id) references publisher(p_id);
+alter table catalog add foreign key(c_id) references category(c_id);
+alter table order_details add foreign key(b_id) references catalog(b_id);
+
+select * from author;
+select * from publisher;
+select * from catalog;
+select * from category;
+select * from order_details;
+
+
+
+insert into author values (1, 'abc', 'mit', 'india');
+insert into author values (2, 'abcd', 'mit', 'india');
+insert into author values (3, 'abcde', 'mit', 'india');
+insert into author values (4, 'abcdef', 'mit', 'india');
+
+insert into publisher values(1, 'xyz', 'banglore', 'india');
+insert into publisher values(2, 'wxyz', 'pune', 'india');
+
+insert into category values(11, 'fiction')
+insert into category values(22, 'horror')
+
+insert into catalog values(1, 'xyz', 1, 1, 22, 2010, 2999);
+insert into catalog values(2, 'abxyz', 1, 1, 11, 2010, 9999);
+insert into catalog values(3, 'abxyz', 2, 1, 11, 2000, 199);
+insert into catalog values(4, 'abxyz', 2, 2, 11, 2010, 99);
+insert into catalog values(5, 'gwabxyz', 1, 2, 22, 1910, 56575);
+
+
+insert into order_details values(1, 1, 2);
+insert into order_details values(2, 2, 4);
+insert into order_details values(3, 3, 5);
+insert into order_details values(4, 4, 2);
+insert into order_details values(5, 5, 7);
+insert into order_details values(6, 1, 2);
+insert into order_details values(7, 1, 7);
+insert into order_details values(8, 2, 8);
+insert into order_details values(9, 2, 1);

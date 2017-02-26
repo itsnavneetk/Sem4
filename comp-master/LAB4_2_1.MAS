@@ -1,0 +1,32 @@
+;16bit signed 8bit signed
+
+data segment
+        num1 dd 00005311H
+        num2 dw 0043H
+        res dw ?
+        rem dw ?
+data ends
+code segment
+assume cs:code, ds:data
+start:
+        MOV AX, DATA
+        MOV DS, AX
+
+
+        LEA si, num1
+        MOV AX, [si]
+        MOV BX, num2
+
+        inc si
+        inc si 
+        MOV DX, [si]
+        IDIV BX
+
+        MOV res, AX
+        MOV rem, DX
+
+        MOV AH, 4CH
+        INT 21H
+code ends
+end start
+

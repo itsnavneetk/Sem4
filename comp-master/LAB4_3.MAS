@@ -1,0 +1,43 @@
+data segment
+        a dw 1234H
+        b dw 0012H
+        res dd ?       
+data ends
+code segment
+assume cs:code, ds:data
+start:
+        MOV AX, DATA
+        MOV DS, AX
+
+        MOV CX, b
+        MOV AX, 0
+        MOV DX, 0
+        MOV BX, a
+BACK:
+		ADD AL, BL 
+		
+		DAA
+		XCHG AH, AL 
+		ADC AH, AL 
+		
+		DAA
+		XCHG AH, AL 
+		XCHG DL, AL
+		ADC AL, 0
+		
+		DAA
+		XCHG AH, AL 
+		XCHG DL, AL
+		ADC AL, 0
+		
+		DAA
+		XCHG DH, DL 
+		LOOP BACK 
+		MOV SI, res
+		MOV [SI], AX
+		MOV [SI+2], DX
+
+		MOV AH, 4CH 
+		INT 21H
+code ends 
+end start		
