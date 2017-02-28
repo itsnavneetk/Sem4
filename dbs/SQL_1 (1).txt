@@ -1,0 +1,307 @@
+SQL> CREATE TABLE PERSON(DRIVER_ID VARCHAR(20),
+ NAME VARCHAR(20),
+ ADDRESS VARCHAR(20),
+ PRIMARY KEY
+(DRIVER_ID));
+
+SQL> CREATE TABLE CAR(REGNO VARCHAR(20),
+ MODEL VARCHAR(20),
+ YEAR INTEGER,
+ PRIMARY KEY(REGNO));
+
+SQL> CREATE TABLE ACCIDENT(REPORT_NUMBER INTEGER,
+ ACCD_DATE DATE,
+ LOCATION VARCHAR(20),
+ PRIMARY KEY(REPORT_NUMBER));
+
+SQL> CREATE TABLE OWNS(DRIVER_ID VARCHAR(20),
+ REGNO VARCHAR(20),
+ FOREIGN KEY(DRIVER_ID) REFERENCES PERSON(DRIVER_ID),
+ FOREIGN KEY(REGNO) REFERENCES CAR(REGNO));
+
+SQL> CREATE TABLE PARTICIPATED(DRIVER_ID VARCHAR(20),
+ REGNO VARCHAR(20),
+ REPORT_NUMBER INTEGER,
+ DAMAGE_AMOUNT INTEGER,
+ FOREIGN KEY(DRIVER_ID) REFERENCES PERSON(DRIVER_ID),
+ FOREIGN KEY(REGNO) REFERENCES CAR(REGNO),
+ FOREIGN KEY(REPORT_NUMBER) REFERENCES ACCIDENT(REPORT_NUMBER));
+
+SQL> INSERT INTO PERSON(DRIVER_ID, NAME, ADDRESS) VALUES('A1', 'A', 'A123');
+
+1 row created.
+
+SQL> INSERT INTO PERSON(DRIVER_ID, NAME, ADDRESS) VALUES('A2', 'B', 'B123');
+
+1 row created.
+
+SQL> INSERT INTO PERSON(DRIVER_ID, NAME, ADDRESS) VALUES('A3', 'C', 'C123');
+
+1 row created.
+
+SQL> INSERT INTO PERSON(DRIVER_ID, NAME, ADDRESS) VALUES('A4', 'D', 'D123');
+
+1 row created.
+
+SQL> INSERT INTO PERSON(DRIVER_ID, NAME, ADDRESS) VALUES('A5', 'E', 'E123');
+
+1 row created.
+
+SQL> INSERT INTO CAR(REGNO, MODEL, YEAR) VALUES('11', 'MODEL1', 2015);
+
+1 row created.
+
+SQL> INSERT INTO CAR(REGNO, MODEL, YEAR) VALUES('22', 'MODEL2', 2016);
+
+1 row created.
+
+SQL> INSERT INTO CAR(REGNO, MODEL, YEAR) VALUES('33', 'MODEL3', 2017);
+
+1 row created.
+
+SQL> INSERT INTO CAR(REGNO, MODEL, YEAR) VALUES('44', 'MODEL4', 2018);
+
+1 row created.
+
+SQL> INSERT INTO CAR(REGNO, MODEL, YEAR) VALUES('55', 'MODEL5', 2019);
+
+1 row created.
+
+SQL> INSERT INTO ACCIDENT(REPORT_NUMBER, ACCD_DATE, LOCATION) VALUES(10, '10-JUL
+-2018', 'LOC1');
+
+1 row created.
+
+SQL> INSERT INTO ACCIDENT(REPORT_NUMBER, ACCD_DATE, LOCATION) VALUES(11, '11-JUL
+-2019', 'LOC2');
+
+1 row created.
+
+SQL> INSERT INTO ACCIDENT(REPORT_NUMBER, ACCD_DATE, LOCATION) VALUES(12, '12-JUL
+-2016', 'LOC3');
+
+1 row created.
+
+SQL> INSERT INTO ACCIDENT(REPORT_NUMBER, ACCD_DATE, LOCATION) VALUES(13, '13-JUL
+-2017', 'LOC4');
+
+1 row created.
+
+SQL> INSERT INTO ACCIDENT(REPORT_NUMBER, ACCD_DATE, LOCATION) VALUES(14, '14-JUL
+-2020', 'LOC5');
+
+1 row created.
+
+SQL> INSERT INTO OWNS(DRIVER_ID, REGNO) VALUES('A1', '11');
+
+1 row created.
+
+SQL> INSERT INTO OWNS(DRIVER_ID, REGNO) VALUES('A2', '22');
+
+1 row created.
+
+SQL> INSERT INTO OWNS(DRIVER_ID, REGNO) VALUES('A3', '33');
+
+1 row created.
+
+SQL> INSERT INTO OWNS(DRIVER_ID, REGNO) VALUES('A4', '44');
+
+1 row created.
+
+SQL> INSERT INTO OWNS(DRIVER_ID, REGNO) VALUES('A5', '55');
+
+1 row created.
+
+SQL> INSERT INTO PARTICIPATED(DRIVER_ID, REGNO, REPORT_NUMBER, DAMAGE_AMOUNT) VA
+LUES('A1', '11', '10', 500);
+
+1 row created.
+
+SQL> INSERT INTO PARTICIPATED(DRIVER_ID, REGNO, REPORT_NUMBER, DAMAGE_AMOUNT) VA
+LUES('A2', '22', '11', 1000);
+
+1 row created.
+
+SQL> INSERT INTO PARTICIPATED(DRIVER_ID, REGNO, REPORT_NUMBER, DAMAGE_AMOUNT) VA
+LUES('A3', '33', '12', 1500);
+
+1 row created.
+
+SQL> INSERT INTO PARTICIPATED(DRIVER_ID, REGNO, REPORT_NUMBER, DAMAGE_AMOUNT) VA
+LUES('A4', '44', '13', 2000);
+
+1 row created.
+
+SQL> INSERT INTO PARTICIPATED(DRIVER_ID, REGNO, REPORT_NUMBER, DAMAGE_AMOUNT) VA
+LUES('A5', '55', '14', 2500);
+
+1 row created.
+
+SQL> SELECT * FROM PERSON;
+
+DRIVER_ID            ADDRESS              NAME
+-------------------- -------------------- --------------------
+A1                   A123                 A
+A2                   B123                 B
+A3                   C123                 C
+A4                   D123                 D
+A5                   E123                 E
+
+SQL> SELECT * FROM CAR;
+
+REGNO                MODEL                      YEAR
+-------------------- -------------------- ----------
+11                   MODEL1                     2015
+22                   MODEL2                     2016
+33                   MODEL3                     2017
+44                   MODEL4                     2018
+55                   MODEL5                     2019
+
+SQL> SELECT * FROM ACCIDENT;
+
+REPORT_NUMBER ACCD_DATE LOCATION
+------------- --------- --------------------
+           10 10-JUL-18 LOC1
+           11 11-JUL-19 LOC2
+           12 12-JUL-16 LOC3
+           13 13-JUL-17 LOC4
+           14 14-JUL-20 LOC5
+
+SQL> SELECT * FROM OWNS;
+
+DRIVER_ID            REGNO
+-------------------- --------------------
+A1                   11
+A2                   22
+A3                   33
+A4                   44
+A5                   55
+
+SQL> SELECT * FROM PARTICIPATED;
+
+DRIVER_ID            REGNO                REPORT_NUMBER DAMAGE_AMOUNT
+-------------------- -------------------- ------------- -------------
+A1                   11                              10           500
+A2                   22                              11          1000
+A3                   33                              12          1500
+A4                   44                              13          2000
+A5                   55                              14          2500
+
+SQL> UPDATE PARTICIPATED SET DAMAGE_AMOUNT=25000 WHERE REPORT_NUMBER=12;
+
+1 row updated.
+
+SQL> SELECT * FROM PARTICIPATED;
+
+DRIVER_ID            REGNO                REPORT_NUMBER DAMAGE_AMOUNT
+-------------------- -------------------- ------------- -------------
+A1                   11                              10           500
+A2                   22                              11          1000
+A3                   33                              12         25000
+A4                   44                              13          2000
+A5                   55                              14          2500
+
+
+SQL> SELECT * FROM PERSON;
+
+DRIVER_ID            ADDRESS              NAME                       NUMB
+-------------------- -------------------- -------------------- ----------
+A1                   A123                 A
+A2                   B123                 B
+A3                   C123                 C
+A4                   D123                 D
+A5                   E123                 E
+
+
+SQL> ALTER TABLE PERSON DROP COLUMN NUMB;
+
+Table altered.
+
+SQL> SELECT *FROM PERSON;
+
+DRIVER_ID            ADDRESS              NAME
+-------------------- -------------------- --------------------
+A1                   A123                 A
+A2                   B123                 B
+A3                   C123                 C
+A4                   D123                 D
+A5                   E123                 E
+
+SQL> ALTER TABLE PERSON ADD CHECK(NAME IS NOT NULL);
+
+Table altered.
+
+SQL> SELECT COUNT(DISTINCT O.DRIVER_ID) AS PEOPLE FROM ACCIDENT A, OWNS O, PARTI
+CIPATED P WHERE A.ACCD_DATE LIKE '%08' AND O.REGNO=P.REGNO AND P.REPORT_NUMBER=A
+.REPORT_NUMBER;
+
+    PEOPLE
+----------
+         1
+
+SQL> SELECT COUNT(P.DRIVER_ID) FROM PARTICIPATED P, ACCIDENT A, CAR C WHERE C.RE
+GNO=P.REGNO AND A.REPORT_NUMBER=P.REPORT_NUMBER AND C.MODEL='MODEL1';
+
+COUNT(P.DRIVER_ID)
+------------------
+                 1
+
+SQL> SELECT PR.DRIVER_ID AS NAME, COUNT(P.DRIVER_ID) AS NO_OF_ACCIDENT, SUM(P.DA
+MAGE_AMOUNT) AS TOTAL_DAMAGE FROM ACCIDENT A, PARTICIPATED P,PERSON PR WHERE P.D
+RIVER_ID=PR.DRIVER_ID AND A.REPORT_NUMBER=P.REPORT_NUMBER GROUP BY P.DRIVER_ID O
+RDER BY TOTAL_DAMAGE DESC;
+
+NAME                 NO_OF_ACCIDENT TOTAL_DAMAGE
+-------------------- -------------- ------------
+A3                                1        25000
+A6                                1         5000
+A5                                1         2500
+A4                                1         2000
+A2                                1         1000
+A1                                1          500
+
+6 rows selected.
+
+SQL> INSERT INTO PERSON VALUES('A7', 'G123', 'G');
+
+1 row created.
+
+SQL> INSERT INTO ACCIDENT VALUES('12', '11-APR-19', 'LOC7');
+INSERT INTO ACCIDENT VALUES('12', '11-APR-19', 'LOC7')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (IT1060.SYS_C00109428) violated
+
+
+SQL> INSERT INTO ACCIDENT VALUES('16', '11-APR-19', 'LOC7');
+
+1 row created.
+
+SQL> INSERT INTO ACCIDENT VALUES('17', '12-APR-19', 'LOC8');
+
+1 row created.
+
+SQL> INSERT INTO PARTICIPATED VALUES('A1', '11', '16', 5000);
+
+1 row created.
+
+SQL> INSERT INTO PARTICIPATED VALUES('A1', '11', '17', 5000);
+
+1 row created.
+
+
+SQL> SELECT PR.DRIVER_ID FROM PERSON PR, ACCIDENT A, PARTICIPATED P WHERE A.REPO
+RT_NUMBER=P.REPORT_NUMBER AND P.DRIVER_ID=PR.DRIVER_ID GROUP BY PR.DRIVER_ID HAV
+ING COUNT(P.DRIVER_ID)>2;
+
+DRIVER_ID
+--------------------
+A1
+
+SQL> SELECT PR.DRIVER_ID FROM PERSON PR, ACCIDENT A, PARTICIPATED P WHERE A.REPO
+RT_NUMBER=P.REPORT_NUMBER GROUP BY PR.DRIVER_ID HAVING PR.DRIVER_ID NOT IN(SELEC
+T P1.DRIVER_ID FROM PARTICIPATED P1 GROUP BY P1.DRIVER_ID);
+
+DRIVER_ID
+--------------------
+A7
