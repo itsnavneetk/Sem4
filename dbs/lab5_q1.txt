@@ -1,0 +1,67 @@
+create database library;
+use library;
+
+create table student (regno varchar(10) primary key, name varchar(10), major varchar(10), bdate date);
+create table course (course int primary key, cname varchar(10), dept varchar(10));
+
+create table enroll(regno varchar(10), course int, sem int, book_isbn int, 
+primary key(regno, course, sem, book_isbn), 
+foreign key (regno) references student, foreign key (course) references course);
+
+create table book_adoption(course int, sem int, book_isbn int, 
+primary key(course, sem, book_isbn),
+foreign key (course) references course);
+
+create table text(book_isbn int, booktitle varchar(20), publisher varchar(20), author varchar(20),
+primary key(book_isbn, booktitle));
+------------------------a
+select course, count(book_isbn) as tot
+from book_adoption 
+group by course having COUNT(*) > 1;
+
+-------b
+
+------c
+select student.regno 
+from (student join enroll on student.regno = enroll.regno)
+group by student.regno 
+having count(*) >1;
+
+-------d
+select student.regno 
+from (student join enroll on student.regno = enroll.regno)
+group by student.regno 
+having count(*) =0;
+
+-------e
+select dept
+from course c join book_adoption b on c.course = b.course 
+join text t on t.book_isbn = b.book_isbn
+where publisher = 'HH'
+
+---------f
+select distinct(enroll.book_isbn)
+from enroll join book_adoption on book_adoption.book_isbn = enroll.book_isbn
+
+
+
+--------g
+select course
+from book_adoption join text on book_adoption.book_isbn = text.book_isbn
+where publisher ='BB'
+group by course having count(*) > 2;
+
+
+--------h
+select name, count(e.book_isbn) 
+from student s join enroll e on s.regno = e.regno 
+join book_adoption b on b.book_isbn = e.book_isbn 
+group by name ;
+
+
+--------i
+select count(book_isbn), publisher
+from text 
+group by publisher;
+
+--------j
