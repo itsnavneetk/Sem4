@@ -11,6 +11,16 @@ foreign key (regno) references student, foreign key (course) references course);
 create table book_adoption(course int, sem int, book_isbn int, 
 primary key(course, sem, book_isbn),
 foreign key (course) references course);
+--------------------
+***
+use using keyword if you get sytax error on join 
+SQL> select course#
+  2  from book_adoption join text using(book_isbn)
+  3  group by course#
+  4  having count(*) >2;
+************
+
+--------------------
 
 create table text(book_isbn int, booktitle varchar(20), publisher varchar(20), author varchar(20),
 primary key(book_isbn, booktitle));
