@@ -1,0 +1,41 @@
+;gcd macro 
+
+
+gcdMacro  macro
+        BACK:
+                CMP AX, BX
+                JE EXIT
+                JC BIGBX
+        UP:
+                MOV DX, 0
+                DIV BX
+                CMP DX, 0
+                JE EXIT
+                MOV AX, BX
+                MOV BX, DX
+                JMP BACK
+        BIGBX:
+                XCHG AX, BX
+                JMP UP
+        EXIT:
+                MOV GCD1, BX
+                endm 
+data segment
+        num dw 40, 90
+        gcd1 dw ?
+data ends
+code segment
+assume cs:code, ds:data
+start:
+        MOV AX, DATA
+        MOV DS, AX
+
+        MOV AX, num
+        MOV BX, num+2
+
+        gcdMacro
+
+        MOV AH, 4CH
+        INT 21H
+code ends
+end start 
