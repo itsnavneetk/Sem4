@@ -1,0 +1,27 @@
+data segment
+        msg1 db "Hello $"
+        msg2 db "World $"
+        msg3 db 10, 3, "$"
+data ends
+code segment 
+        MOV AX, DATA
+        MOV DS, AX
+start:
+        LEA DX, msg1
+        CALL FAR PTR printstr
+        LEA DX, msg3
+        CALL FAR PTR printstr
+        LEA DX, msg2
+        CALL FAR PTR printstr
+        MOV AH, 4CH
+        INT 21H
+code ends
+MYCODE SEGMENT
+assume CS:MYCODE
+        printstr proc FAR
+        MOV AH, 09
+        INT 21H
+        RET
+        printstr endp
+MYCODE ends
+end start 

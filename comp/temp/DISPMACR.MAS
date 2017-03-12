@@ -1,0 +1,24 @@
+;displaying msg by macro
+printstr macro msg
+        LEA DX, msg
+        MOV AH, 09  ;string operation
+        INT 21H
+        endm
+
+data segment
+        msg1 db " Hello $"
+        msg2 db " World $"
+        msg3 db 10, 13,"$";
+data ends
+code segment
+assume cs:code, ds:data
+start:
+        MOV AX, DATA
+        MOV DS, AX
+        printstr msg1
+        printstr msg3
+        printstr msg2
+        MOV AH, 4CH
+        INT 21H
+code ends
+end start 

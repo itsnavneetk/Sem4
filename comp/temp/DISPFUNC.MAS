@@ -1,0 +1,31 @@
+;displaying using near function 
+Data segment
+        msg1 db " Hello $"
+        msg2 db " World $"
+        msg3 db 10, 13, "$"
+Data ends          
+code segment
+assume cs:code, ds:data
+start:
+        MOV AX, DATA
+        MOV DS, AX
+
+        LEA DX, msg1
+        CALL printstr
+        LEA DX, msg3
+        CALL printstr
+        LEA DX, msg2
+        CALL printstr
+
+        MOV AH, 4CH
+        INT 21H
+
+        printstr proc
+                MOV AH, 09
+                INT 21H
+                RET
+        printstr endp
+code ends
+end start
+
+

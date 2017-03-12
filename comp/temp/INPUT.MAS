@@ -1,0 +1,71 @@
+print macro msg
+        LEA DX, msg
+        MOV AH, 09
+        INT 21H
+ENDM
+
+data segment
+       msg db "enter an array $"
+       msg1 db "entered array $"
+       msg3 db 10, 13, "$"
+       msg4 db "  $"
+       array DB 5 DUP(?)
+data ends 
+code segment
+assume cs:code, ds:data
+START:
+        MOV AX, data
+        MOV DS, AX
+        LEA SI, array
+        print msg
+        MOV CX, 0005
+BACK:
+        CALL accept
+        print msg4
+        LOOP BACK
+        print msg3
+        LEA SI, array
+        MOV CX, 0005
+        print msg1
+
+BACK1:
+        CALL disp
+        print msg4
+        INC SI
+        LOOP BACK1
+        MOV AH, 4CH
+        INT 21H
+
+        accept PROC
+                MOV AH, 01; accepting digit
+                INT 21H
+                SUB AL, 30H; ASCII value is stored in al
+                MOV DH, AL
+                PUSH CX
+                MOV CL, 04
+                SHL DH, CL
+
+                MOV AH, 01
+                INT 21H
+                SUB AH, 30H
+                POP CX
+                RET
+        accept endp
+
+        disp PROC
+                MOV DL, [SI]
+                PUSH CX
+                MOV CL, 04
+                SHR DL, CL
+                ADD DL, 30H
+                MOV AH, 02
+                INT 21H
+                MOV DL, [SI]
+                AND DL, 0FH
+                ADD DL, 30H
+                MOV AH, 02
+                INT 21H
+        disp ENDP
+CODE ENDS
+END START
+

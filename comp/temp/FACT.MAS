@@ -1,0 +1,32 @@
+data segment
+        num db 04h
+        fac dw ?
+data ends
+code segment
+assume cs:code, ds:data
+start:
+        mov ax, data
+        mov ds, ax
+        mov ah, 00
+        mov al, num
+        call fact
+        
+        mov ah, 4ch
+        int 21h
+
+        fact proc
+                cmp ax, 01
+                je exit
+                push ax
+                dec ax
+                call fact
+                pop ax
+                mul fac
+                ret
+        exit:
+                mov fac, 01
+                ret
+        fact endp
+        code ends
+        end start
+                                                                                                                                                                                                                                                                                        

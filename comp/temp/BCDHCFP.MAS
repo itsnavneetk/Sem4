@@ -1,0 +1,43 @@
+conv MACRO mno, shift
+
+        MOV CL, shift
+        SHR DX, CL
+        MOV AX, DX 
+        AND AX, 000F
+        MOV BL, mno
+        MUL BL
+        ADC hex, AX
+        MOV AH, 4CH
+        INT 21H
+endm        
+
+data segment
+        bcd 1234H
+        hex dw ?
+data ends
+code segment
+assume cs:code, ds:data
+start:
+        MOV AX, DATA
+        MOV DS, AX
+
+        MOV DX, bcd
+        MOV AX, 0000H
+        MOV CH, 00
+        CLC
+
+        CONV 1000, 12
+        MOV DX, bcd                
+        CONV 100, 8
+        MOV DX, bcd
+        CONV 10, 4
+        MOV DX, bcd
+        CONV 1, 0
+
+        MOV AH, 4CH
+        INT 21H
+
+code ends
+END START
+        
+

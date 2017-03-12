@@ -1,0 +1,33 @@
+data segment
+        msg1 db "not found $"
+        msg2 db "found $"
+        arr db 10h, 20h, 30h, 40h, 50h
+        num db 40h
+data ends
+code segment
+assume cs:code, ds:data
+start:
+        mov ax, data
+        mov ds, ax
+
+        mov si, -1
+        mov cx, 05h
+        mov al, num
+back:
+        inc si
+        cmp al, [si]
+        je down
+        loopnz back
+        je down
+        lea dx, msg1
+        jmp exit
+down:
+        lea dx, msg2
+exit:
+        mov ah, 09
+        int 21h
+code ends
+end start 
+
+
+
