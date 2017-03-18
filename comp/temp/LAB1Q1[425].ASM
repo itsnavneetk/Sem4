@@ -1,0 +1,41 @@
+DATA SEGMENT
+A DB 10H,12H,13H,14H,15H,16H,17H,18H,19H,20H
+NUM DB 9
+KEY DB 13H
+MSG1 DB 'ELEMENT FOUND$'
+MSG2 DB 'ELEMENT NOT FOUND$'
+DATA ENDS
+
+PRINT MACRO M
+        LEA DX,M
+        MOV AH,09H
+        INT 21H
+        ENDM
+
+CODE SEGMENT
+        ASSUME CS:CODE, DS:DATA
+START:
+        MOV AX,DATA
+        MOV DS,AX
+
+        MOV CH,00H
+        MOV CL,NUM ;CX=10
+        MOV AH,KEY
+        LEA SI,A
+BACK:
+        MOV AL,BYTE PTR [SI];
+        CMP KEY,AL
+        JZ FOUND
+        INC SI
+        LOOP BACK
+        PRINT MSG2
+        JMP EXIT
+FOUND:
+        PRINT MSG1
+
+EXIT:
+        MOV AH,4CH
+        INT 21H
+
+CODE ENDS
+END START
