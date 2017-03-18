@@ -1,0 +1,9 @@
+E:\150911226\loginForm\loginForm\loginForm\bin\Debug\loginForm.exe.config
+E:\150911226\loginForm\loginForm\loginForm\bin\Debug\loginForm.exe
+E:\150911226\loginForm\loginForm\loginForm\bin\Debug\loginForm.pdb
+E:\150911226\loginForm\loginForm\loginForm\obj\Debug\loginForm.csprojResolveAssemblyReference.cache
+E:\150911226\loginForm\loginForm\loginForm\obj\Debug\loginForm.Form1.resources
+E:\150911226\loginForm\loginForm\loginForm\obj\Debug\loginForm.Properties.Resources.resources
+E:\150911226\loginForm\loginForm\loginForm\obj\Debug\loginForm.csproj.GenerateResource.Cache
+E:\150911226\loginForm\loginForm\loginForm\obj\Debug\loginForm.exe
+E:\150911226\loginForm\loginForm\loginForm\obj\Debug\loginForm.pdb
