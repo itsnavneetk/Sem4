@@ -1,0 +1,10 @@
+E:\150911226\driverUI\driverUI\bin\Debug\driverUI.exe.config
+E:\150911226\driverUI\driverUI\bin\Debug\driverUI.exe
+E:\150911226\driverUI\driverUI\bin\Debug\driverUI.pdb
+E:\150911226\driverUI\driverUI\bin\Debug\Oracle.DataAccess.dll
+E:\150911226\driverUI\driverUI\obj\Debug\driverUI.Form1.resources
+E:\150911226\driverUI\driverUI\obj\Debug\driverUI.Properties.Resources.resources
+E:\150911226\driverUI\driverUI\obj\Debug\driverUI.csproj.GenerateResource.Cache
+E:\150911226\driverUI\driverUI\obj\Debug\driverUI.exe
+E:\150911226\driverUI\driverUI\obj\Debug\driverUI.pdb
+E:\150911226\driverUI\driverUI\obj\Debug\driverUI.csprojResolveAssemblyReference.cache
