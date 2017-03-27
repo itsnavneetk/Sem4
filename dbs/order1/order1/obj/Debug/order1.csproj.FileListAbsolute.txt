@@ -1,0 +1,10 @@
+E:\150911226\order1\order1\bin\Debug\order1.exe.config
+E:\150911226\order1\order1\bin\Debug\order1.exe
+E:\150911226\order1\order1\bin\Debug\order1.pdb
+E:\150911226\order1\order1\bin\Debug\Oracle.DataAccess.dll
+E:\150911226\order1\order1\obj\Debug\order1.csprojResolveAssemblyReference.cache
+E:\150911226\order1\order1\obj\Debug\order1.Form1.resources
+E:\150911226\order1\order1\obj\Debug\order1.Properties.Resources.resources
+E:\150911226\order1\order1\obj\Debug\order1.csproj.GenerateResource.Cache
+E:\150911226\order1\order1\obj\Debug\order1.exe
+E:\150911226\order1\order1\obj\Debug\order1.pdb

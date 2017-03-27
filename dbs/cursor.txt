@@ -1,0 +1,21 @@
+
+
+
+
+create or replace procedure mod IS
+cursor order_cur IS
+select * 
+from orders1226 join order_items1226 using(order1) 
+where order_items1226.item = 4; 
+order_tab order_cur %rowtype;
+BEGIN
+open order_cur;
+loop
+FETCH order_cur INTO order_tab;
+if order_tab.item = 4 then update orders1226 set orders1226.ordamnt = (orders1226.ordamnt * 0.90);
+else update orders1226 set orders1226.ordamnt = (orders1226.ordamnt * 0.95);
+end if;
+exit when order_cur%notfound;
+end loop;
+close order_cur;
+end;	
