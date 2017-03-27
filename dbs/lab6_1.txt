@@ -1,0 +1,36 @@
+
+2.
+SQL> CREATE OR REPLACE TRIGGER TRIG3
+    AFTER INSERT ON PARTICIPATED226
+    FOR EACH ROW
+    DECLARE
+    PR PERSON226 %ROWTYPE;
+    BEGIN
+    IF INSERTING THEN
+    SELECT * INTO PR FROM PERSON226 WHERE PERSON226.DRIVER_ID=:NEW.DRIVER_ID;
+    DBMS_OUTPUT.PUT_LINE(PR.DRIVER_ID || ' ' || PR.NAME || ' ' || PR.ADDRESS);
+   END IF;
+   END;
+   /
+
+
+3.
+create or replace function tot_acc
+(yeari in int)
+return int as cn int;
+begin
+select count(*) c into cn
+from accident226
+group by extract(year from accd_date)
+having extract(year from accd_date)=yeari;
+return cn;
+end;
+/
+
+4.create or replace procedure proc(id in varchar,yr in number)
+as dom number;
+begin
+select sum(damage_amount)into dom from participated226 p,accident226 a where p.report_number=a.report_number and driver_id=id and extract(year from accd_date)=yr;
+dbms_output.put_line('total damage is '||dom);
+end;
+/
