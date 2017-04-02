@@ -1,0 +1,145 @@
+-------lab4q1 
+
+SQL> select count(distinct(driver_ID))
+  2  from owns11 where driver_ID in (select driver_id from participated11);
+
+
+COUNT(DISTINCT(DRIVER_ID))
+--------------------------
+                         4
+
+
+
+  select count(*)
+  from participated11 p join car11 c using (regno)
+  where c.model = 'MODEL2';
+
+COUNT(*)
+----------
+         2
+
+
+	
+	select distinct(driver_id), pp.name , count(*) as noAccident, sum(damage_amount) as totDamage
+	from participated11 p join person11 pp using(driver_id)
+	group by driver_id, pp.name order by sum(damage_amount) desc;   
+	      
+DRIVER_ID            NAME                 NOACCIDENT  TOTDAMAGE
+-------------------- -------------------- ---------- ----------
+A5                   ABCD                          1     999999
+A1                   A                             4     234500
+A3                   ABC                           2     179000
+A4                   ABC                           2      59000
+A2                   AB                            2      32900
+
+
+
+	select driver_id from participated11 
+	group by driver_id having count(*) > 2;
+
+DRIVER_ID
+--------------------
+A1
+
+
+	select driver_id from person11 
+	where driver_id not in(select driver_id from participated11);
+
+no rows selected
+
+	
+
+	*************-----------------------****************additional 
+
+
+
+select t.id, count(course_id) from takes t where course_id in (select course_id from course where dept_name = 'Comp. Sci.') group by t.id
+having count(t.id)=(select count(course_id) from course where dept_name='Comp. Sci.');
+
+
+
+
+select cname from orders o join customer c on o.cust = c.cust where odate='2015-07-10';
+
+
+select o.order1 from order_items o join orders oo on o.order1 = oo.order1 group by o.order1 having count(*) =
+(select max(COUNT(item)) from order_items o join orders oo on o.order1 = oo.order1 group by o.order1);
+
+select shipdate
+from shipment group by shipdate having COUNT(*) = 
+(select max(count(*)) from shipment group by shipdate);
+
+
+select * from shipment s join warehouse w on w.warehouse = s.warehouse where city='delhi';
+
+select * from customer where cname like ('%c');
+
+select * from orders o join customer c on o.cust = c.cust where odate='2015-07-10'
+
+
+
+
+
+
+
+
+
+select * from teaches t join takes tt using(course_id) where t.id = 10101;
+
+
+
+create or replace trigger mytrig
+    after insert on participated11
+    begin
+    select * from
+
+
+
+
+
+create or replace function countacc (accYear IN number)
+    return number as
+    totacc number;
+    begin
+    select count(report_number) into totacc from accident11 where extract(year from accd_date)=accYear;
+    return totacc;
+    end;
+    /
+
+declare
+    begin
+    dbms_output.put_line('totoo' ||countacc(2016));
+    end;
+  /
+
+
+  create or replace procedure tot_dam
+  (id in varchar, ye in number) is 
+  dam number;
+  begin
+  select sum(damage_amount) into dam from participated11 join accident11 using(report_number)
+  where driver_id = id and extract(year from accd_date) = ye;
+    dbms_output.put_line('totoo' ||dam);
+    end;
+
+
+     exec tot_dam('A1', 2016)
+
+
+
+	create or replace procedure info(loc in varchar) is 
+	cursor cur1 is 
+	select report_number, accd_date from accident11 where location = loc;
+
+	begin
+	for item in cur1
+	loop 
+		dbms_output.put_line('totoo' ||item.accd_date||' '||item.report_number);
+	end loop;
+
+	end;
+	/
+
+
+
+

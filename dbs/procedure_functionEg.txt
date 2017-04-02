@@ -1,0 +1,188 @@
+example of function:
+create or replace function sum_number(a number,b number)
+return number as
+tot number;
+begin
+tot:=a+b;
+return tot;
+end;
+/
+set serveroutput on;
+declare
+begin
+dbms_output.put_line(sum_number(2,3));
+end;
+ 
+1)
+    create or replace procedure Hi is
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE('Good Day to You!');
+    END;
+    /
+ 
+    DECLARE
+    BEGIN
+        Hi;
+    END;
+    /
+ 
+2.
+create or replace procedure list(d_name varchar)
+is
+ 
+  cursor c1 is
+     select name from student1 where dept_name=d_name;
+  cursor c2 is
+      select title from course where dept_name=d_name;
+     
+begin
+for item in c1
+loop
+    DBMS_OUTPUT.PUT_LINE('Name = '||item.name);
+end loop;
+ 
+for item2 in c2
+loop
+    DBMS_OUTPUT.PUT_LINE('Title = '||item2.title) ;
+end loop;
+ 
+end;
+/
+ 
+declare
+d_name varchar(20):=&d_name;
+begin
+  list(d_name);
+end;
+/
+ 
+output-
+Enter value for d_name: 'Biology'
+old   2: d_name varchar(20):=&d_name;
+new   2: d_name varchar(20):='Biology';
+Name = Tanaka
+Title = Intro. to Biology
+Title = Genetics
+Title = Computational Biology
+ 
+ 
+3.
+create or replace procedure department_highest2(d_name varchar2)
+is
+cursor c1 is
+select name,salary from instructor where salary=(select max(salary) from instructor where dept_name=d_name) and dept_name=d_name;
+begin
+for item in c1
+loop
+    DBMS_OUTPUT.PUT_LINE(item.name||' '||item.salary);
+end loop;
+end;
+/
+ 
+declare
+d_name varchar2(20):=&d_name;
+begin
+ 
+ department_highest2(d_name);
+end;
+/
+ 
+output-
+Srinivasan 150000
+ 
+5.
+create or replace function sqr(no number)
+  return number as
+  square number;
+begin
+  square:=no*no;
+  return square;
+end;
+/
+declare
+begin
+  dbms_output.put_line('The square is '||sqr(2));
+end;
+/
+ 
+output-
+The square is 4
+ 
+6.
+create or replace function course_popular(d_name varchar2)
+  return varchar2 as
+  cid varchar2(8);
+begin
+  with c_student as (select takes.course_id, count(id) as n_stud
+        from takes group by takes.course_id
+        having takes.course_id IN (select course_id from course where dept_name = d_name)),
+        max_count as (select max(n_stud) as maxs FROM c_student)
+    select course_id into cid FROM c_student, max_count where n_stud=maxs;
+return cid ;
+end;
+/
+declare
+begin
+ dbms_output.put_line('The most popular course is '||course_popular('Comp. Sci.')) ;
+end;
+/
+ 
+output-
+The most popular course is CS-101
+ 
+ 
+ 
+7.
+create or replace package univ as
+ procedure list_name(d_name varchar2);
+ function max_sal(d_name varchar2) return number ;
+end univ ;
+/
+create or replace package body univ as
+  procedure list_name(d_name varchar2) is
+     cursor c1 is
+        select name from instructor where dept_name=d_name;
+     begin
+     for item in c1
+     loop
+       DBMS_OUTPUT.PUT_LINE(item.name) ;
+     end loop;
+  end;
+function max_sal(d_name varchar2) return number as msal number(8,2);
+begin
+  select max(salary) into msal from instructor where dept_name=d_name;
+return msal;
+end;
+end univ;
+/
+ 
+declare
+begin
+univ.list_name('Comp. Sci.');
+dbms_output.put_line(univ.max_sal('Comp. Sci.'));
+end;
+/
+ 
+8.
+    CREATE or REPLACE PROCEDURE interes(p number,t number, r number, si OUT number,ci OUT number, tSum IN OUT number) is
+    temp number;
+    BEGIN
+        si := (p*t*r)/100;
+        temp := tSum;
+        tSum := power((tSum*(1+(r/100))),FLOOR(t));
+        ci := tSum - temp;
+    END;
+    /
+ 
+    DECLARE
+    p number := 1000
+    t number := 2
+    r number := 10
+    si number;
+    ci number;
+    tSum number := 100; --principal for CI
+    BEGIN
+        interest(p,t,r,si,ci,tSum);
+        DBMS_OUTPUT.PUT_LINE(si||", "||ci||", "||tSum);
+    END;
+    /
