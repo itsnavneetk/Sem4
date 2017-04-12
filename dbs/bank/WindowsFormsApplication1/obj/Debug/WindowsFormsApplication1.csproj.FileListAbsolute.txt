@@ -9,3 +9,14 @@ E:\150911226\lab2\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplicatio
 E:\150911226\lab2\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 E:\150911226\lab2\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
 E:\150911226\lab2\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.transfer.resources
+E:\WORK\New folder\Sem4\dbs\bank\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+E:\WORK\New folder\Sem4\dbs\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+E:\WORK\New folder\Sem4\dbs\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+E:\WORK\New folder\Sem4\dbs\bank\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+E:\WORK\New folder\Sem4\dbs\bank\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+E:\WORK\New folder\Sem4\dbs\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+E:\WORK\New folder\Sem4\dbs\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.BANK.resources
+E:\WORK\New folder\Sem4\dbs\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.home.resources
+E:\WORK\New folder\Sem4\dbs\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+E:\WORK\New folder\Sem4\dbs\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.transfer.resources
+E:\WORK\New folder\Sem4\dbs\bank\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
